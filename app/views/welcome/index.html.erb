@@ -1,10 +1,35 @@
-<h1>Food Recipes</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Food Recipes</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all',
+                                              'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <%= link_to "Food Recipes Logo", '#', id: "logo" %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Home",   '#' %></li>
+            <li><%= link_to("Index", {:controller => 'welcome', :action => 'index'}) %>
+            <li><%= link_to "Log in", '#' %></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="center jumbotron">
+      <h1>Welcome to Food Recipes</h1>
 
-<%# Test Comment%>
+      <h2>
+        This is the home page for the
+            <a href="http://www.railstutorial.org/">Ruby on Rails Tutorial</a>
+        sample application.
+      </h2>
 
-
-<%= "Count to 10" %>
-<br />
-<% 11.times do |i| %>
-	<%= i %>
-<% end %>
+      <%= link_to "Sign up now!", '#', class: "btn btn-lg btn-primary" %>
+    </div>
+  </body>
+</html>
