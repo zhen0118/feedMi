@@ -13,7 +13,8 @@
         <%= link_to("Food Recipes", {:controller => 'home', :action => 'index'}, id: "logo")%>
         <nav>
           <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to("Sign Out", {:controller => 'welcome', :action => 'index'}) %>
+            <li><%= link_to("Home", {:controller => 'home', :action => 'index'}) %></li>
+            <li><%= link_to("Log In", {:controller => 'users', :action => 'index'}) %>
           </ul>
         </nav>
       </div>
@@ -22,9 +23,10 @@
       <h1>Welcome to Food Recipes</h1>
 
       <h2>
-        This is the home page.
+        This is the Welcome page to Food Recipes. Sign up Below!
       </h2>
 
+      <%= link_to "Sign up now!", '#', class: "btn btn-lg btn-primary" %>
     </div>
   </body>
 </html>
