@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'login/index'
+
   resources :users
   #get 'home/index'
   match ':controller(/:action(/:id))' , :via => :get
