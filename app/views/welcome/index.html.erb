@@ -10,11 +10,11 @@
   <body>
     <header class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
-        <%= link_to("Food Recipes", {:controller => 'home', :action => 'index'}, id: "logo")%>
+        <%= link_to("Food Recipes", {:controller => 'welcome', :action => 'index'}, id: "logo")%>
         <nav>
           <ul class="nav navbar-nav navbar-right">
             <li><%= link_to("Home", {:controller => 'home', :action => 'index'}) %></li>
-            <li><%= link_to("Log In", {:controller => 'users', :action => 'index'}) %>
+            <li><%= link_to("Log In", {:controller => 'login', :action => 'index'}) %>
           </ul>
         </nav>
       </div>
