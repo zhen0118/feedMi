@@ -1,4 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 **/tmp/
 **/log/
-**/db/development.sqlite3
+db/development.sqlite3
