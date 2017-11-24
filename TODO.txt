@@ -1,0 +1,14 @@
+Todo (Basic):
+ - Database (Oscar) 
+      MySQL -> Host AWS..
+ - Connect front to back (Vince)
+ - User API (Vickie)
+      Insert, update, delete, select, get, post
+ - Layout for pages (Vickie)
+ - Random food generation + lookup online
+ - Database of food items from a API or library 
+
+Add-Ons:
+  - Weather
+  - Social
+  - Machine Learning (Predictive)
