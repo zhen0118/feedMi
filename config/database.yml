@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
+  adapter: mysql2
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   encoding: utf8
   username: root
@@ -13,8 +13,6 @@ default: &default
   host: 127.0.0.1
   port: 3306
   socket: /var/run/mysqld/mysqld.sock 
-  timeout: 5000
-
 
 development:
   <<: *default
