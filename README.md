@@ -11,9 +11,11 @@ Things you may want to cover:
 
 * Configuration
 
-* Database creation
-
-* Database initialization
+* Database
+  gem install mysql2
+  
+  Follow this link
+  https://www.digitalocean.com/community/tutorials/how-to-use-mysql-with-your-ruby-on-rails-application-on-ubuntu-14-04
 
 * How to run the test suite
 
