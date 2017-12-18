@@ -1,9 +1,9 @@
-class WelcomeController < ApplicationController
+class WelcomeController < ActionController::Base
+  def help
+    # put any code here that you need 
+    # (although for a static view you probably won't have any)
+  end
   def index
+  	@user = User.all
   end
-
-  def sample
-  	@controller_message = "Hello From Controller"
-  end
-
 end
