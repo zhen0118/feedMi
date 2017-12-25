@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  weather_condition: MyString
+  temperature: 1
+  food_type: MyString
+  ratings: 1
+
+two:
+  weather_condition: MyString
+  temperature: 1
+  food_type: MyString
+  ratings: 1
