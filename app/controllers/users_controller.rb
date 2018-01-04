@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find(params[:id])
   end
 
   # GET /users/new
@@ -28,13 +29,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-      
         flash[:success] = "Welcome to the WhatToEat App. User was successfully created."
         format.html { redirect_to :controller => 'home', :action => 'index' }
-        #format.html { redirect_to @user, notice: 'User was successfully created.' }
-        #format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :new }
+        flash[:success] = "Welcome to the WhatToEat App. User was not successfully created."
+        format.html { render 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -72,6 +71,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:password, :email, :user_name, :first_name, :last_name)
+      params.require(:user).permit(:password, :password_confirmation, :email, :user_name, :first_name, :last_name)
     end
+
 end
