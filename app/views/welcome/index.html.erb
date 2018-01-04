@@ -13,7 +13,6 @@
         <%= link_to("Food Recipes", {:controller => 'welcome', :action => 'index'}, id: "logo")%>
         <nav>
           <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to("Home", {:controller => 'home', :action => 'index'}) %></li>
 
             <li><%= link_to("Log In", {:controller => 'login', :action => 'index'}) %></li>
 
@@ -46,6 +45,9 @@
 
             <%= f.label :password %>
             <%= f.password_field :password, class: 'form-control' %>
+
+            <%= f.label :confirm_password %>
+            <%= f.password_field :password_confirmation, class: 'form-control' %>
 
             <%= f.submit "Sign up now!", class: "btn btn-primary" %>
           <% end %>

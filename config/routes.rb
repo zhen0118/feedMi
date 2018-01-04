@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
-  get 'login/index'
+  get 'sessions/new'
 
+  get 'login/index'
+  get 'profile/index'
   get 'users/new'
+  get 'home/index'
+  get    '/login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
 
   resources :users
-  #get 'home/index'
   match ':controller(/:action(/:id))' , :via => :get
   root 'welcome#index'
 
