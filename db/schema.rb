@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104044627) do
+ActiveRecord::Schema.define(version: 20180212072110) do
 
   create_table "foods", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "food_name"
+    t.string "food_origin"
     t.string "food_type"
-    t.integer "food_id"
-    t.integer "food_ratings"
+    t.integer "food_rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
