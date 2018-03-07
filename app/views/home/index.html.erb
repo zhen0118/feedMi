@@ -27,11 +27,12 @@
         This is the home page.
       </h2>
 
-      <h3>
-        <%= link_to 'Pick a random food', '#', class: "btn btn-default" %>
-        <span><%= controller.get_random_food %></span>
-      </h3>
+      <div>
+        <%= link_to "Your random food!", "/rand_food", :remote => true, class: "btn btn-default" %>      
+        <div id = "food_div">
 
+        </div>
+      </div>
     </div>
   </body>
 </html>

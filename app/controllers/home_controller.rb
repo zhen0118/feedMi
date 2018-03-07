@@ -9,4 +9,10 @@ class HomeController < ApplicationController
   def get_random_food
     Food.order("RAND()").first(1)
   end
+
+  def food
+  	respond_to do |format|               
+    format.js #renders partial _food.html.erb
+  end        
+end 
 end
