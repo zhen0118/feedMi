@@ -6,11 +6,15 @@ class HomeController < ApplicationController
   	@controller_message = "Hello From Controller"
   end
 
-  def get_random_food
-    Food.order("RAND()").first(1)
-  end
-
   def food
+  	@food_origin = params[:food_origin]
+  	#TODO: add parameter checking
+  	if @food_origin != ""
+  		@food = Food.where("food_origin = ?", @food_origin).sample
+  	else
+  		@food = Food.order("RAND()").first
+  	end
+
   	respond_to do |format|               
     format.js #renders partial _food.html.erb
   end        

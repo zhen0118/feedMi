@@ -28,10 +28,14 @@
       </h2>
 
       <div>
-        <%= link_to "Your random food!", "/rand_food", :remote => true, class: "btn btn-default" %>      
-        <div id = "food_div">
+        <%= form_tag("/rand_food", method: "get", :remote => true) do %>
+          <%= submit_tag("RANDOMIZE!") %>
+          <!--TODO: Make drop down options pulled from db -->
+          <%= select_tag(:food_origin, options_for_select(["American"]), {:include_blank => 'Filter based on food origin'}) %>
+        <% end %>
 
-        </div>
+        <%= link_to "Your random food!", "/rand_food", :remote => true, class: "btn btn-default" %>      
+        <div id = "food_div"></div>
       </div>
     </div>
   </body>
