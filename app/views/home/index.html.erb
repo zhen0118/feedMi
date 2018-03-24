@@ -30,8 +30,7 @@
       <div>
         <%= form_tag("/rand_food", method: "get", :remote => true) do %>
           <%= submit_tag("RANDOMIZE!") %>
-          <!--TODO: Make drop down options pulled from db -->
-          <%= select_tag(:food_origin, options_for_select(["American"]), {:include_blank => 'Filter based on food origin'}) %>
+          <%= select_tag(:food_origin, options_from_collection_for_select(Food.pluck(:food_origin).uniq, 'strip', 'strip'), {:include_blank => 'Filter based on food origin'}) %>
         <% end %>
 
         <%= link_to "Your random food!", "/rand_food", :remote => true, class: "btn btn-default" %>      
