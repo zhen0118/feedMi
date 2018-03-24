@@ -1,6 +1,11 @@
 <div id = "food_sect">
-	<%= @food %>
-	<%= @food.id %>
-	<%= @food.food_name %>
-	<%= @food.food_origin %>
+	<% if @food.nil? == false %>
+		<%= @food %>
+		<%= @food.id %>
+		<%= @food.food_name %>
+		<%= @food.food_origin %>
+		<%= @food.food_type %>
+	<% else %>
+		<%= "Could not find a food for you :(" %>
+	<% end %>
 </div>
