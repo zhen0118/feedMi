@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
-
+  get 'food/index'
+  get 'home/index'
   get 'login/index'
   get 'profile/index'
+  get 'sessions/new'
   get 'users/new'
-  get 'home/index'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
