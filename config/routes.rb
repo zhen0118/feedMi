@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get 'food/index'
+  get '/food/index', to: 'home#index'
+  get '/food/:id', to: 'food#index', as: 'food'
   get 'home/index'
   get 'login/index'
   get 'profile/index'

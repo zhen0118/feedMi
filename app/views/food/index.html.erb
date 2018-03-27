@@ -1,27 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Food Recipes</title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all',
-                                              'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-  <body>
-    <header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-        <%= link_to("Food Recipes", {:controller => 'home', :action => 'index'}, id: "logo")%>
-        <nav>
-          <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to("Home", {:controller => 'home', :action => 'index'}) %></li>
-            <li><%= link_to("Profile", {:controller => 'profile', :action => 'index'}) %></li>
-            <li><%= link_to("Sign Out", {:controller => 'welcome', :action => 'index'}) %>
+<head>
+  <title>Food Recipes</title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all',
+  'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <%= link_to("Food Recipes", {:controller => 'home', :action => 'index'}, id: "logo")%>
+      <nav>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to("Home", {:controller => 'home', :action => 'index'}) %></li>
+          <li><%= link_to("Profile", {:controller => 'profile', :action => 'index'}) %></li>
+          <li><%= link_to("Sign Out", {:controller => 'welcome', :action => 'index'}) %>
           </ul>
         </nav>
       </div>
     </header>
     <div>
-          <%= submit_tag("Go Back!") %>
+      <%= link_to("Go Back", {:controller => 'home', :action => 'index'}, class: "btn btn-default")%>
+      <div class="split left">
+        <div class="centered">
+          <h2>Recipes</h2>
+          <p>Here are some Recipes!</p>
+          <%= @food.id %>
+          <%= @food.food_name %>
+          <%= @food.food_origin %>
+          <%= @food.food_type %>
+        </div>
+      </div>
+
+      <div class="split right">
+        <div class="centered">
+          <h2>Restaurants</h2>
+          <p>Here are some Restaraunts!</p>
+          <%= @food.id %>
+          <%= @food.food_name %>
+          <%= @food.food_origin %>
+          <%= @food.food_type %>
+        </div>
+      </div>
     </div>
   </body>
-</html>
+  </html>

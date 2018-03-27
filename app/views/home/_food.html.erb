@@ -1,10 +1,12 @@
 <div id = "food_sect">
 	<% if @food.nil? == false %>
-		<%= @food %>
 		<%= @food.id %>
 		<%= @food.food_name %>
 		<%= @food.food_origin %>
 		<%= @food.food_type %>
+    <div>
+    <%= link_to("I pick this food!", {:controller => 'food', :action => @food.id}, class: "btn btn-default")%>
+    </div>
 	<% else %>
 		<%= "Could not find a food for you :(" %>
 	<% end %>
