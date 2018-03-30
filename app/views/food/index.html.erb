@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Food Recipes</title>
+  <title>foodMi</title>
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag    'application', media: 'all',
   'data-turbolinks-track': 'reload' %>
@@ -10,7 +10,7 @@
 <body>
   <header class="navbar navbar-fixed-top navbar-inverse">
     <div class="container">
-      <%= link_to("Food Recipes", {:controller => 'home', :action => 'index'}, id: "logo")%>
+      <%= link_to("foodMi", {:controller => 'home', :action => 'index'}, id: "logo")%>
       <nav>
         <ul class="nav navbar-nav navbar-right">
           <li><%= link_to("Home", {:controller => 'home', :action => 'index'}) %></li>
@@ -24,7 +24,7 @@
       <%= link_to("Go Back", {:controller => 'home', :action => 'index'}, class: "btn btn-default")%>
       <div class="split left">
         <div class="centered">
-          <h2>Recipes</h2>
+          <h1>Recipes</h1>
           <p>Here are some Recipes!</p>
           <%= @food.id %>
           <%= @food.food_name %>
@@ -35,7 +35,7 @@
 
       <div class="split right">
         <div class="centered">
-          <h2>Restaurants</h2>
+          <h1>Restaurants</h1>
           <p>Here are some Restaraunts!</p>
           <%= @food.id %>
           <%= @food.food_name %>
