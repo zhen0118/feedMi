@@ -29,10 +29,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        flash[:success] = "Welcome to the foodMi App. User was successfully created."
+        flash[:success] = "Welcome to the feedMi App. User was successfully created."
         format.html { redirect_to :controller => 'home', :action => 'index' }
       else
-        flash[:success] = "Welcome to the foodMi App. User was not successfully created."
+        flash[:success] = "Welcome to the feedMi App. User was not successfully created."
         format.html { render 'new' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
