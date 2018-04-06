@@ -1,0 +1,19 @@
+.image-placeholder {
+    background-color: #eee;
+    display: flex;
+    height: 280px;
+    margin: 5px;
+    width: 260px;
+}
+
+.image-placeholder > h4 {
+    align-self: center;
+    text-align: center;
+    width: 100%;
+}
+
+.profile-leftbar > h2 {
+   display: flex;
+   text-align: left;
+   font-weight: bold;
+}
