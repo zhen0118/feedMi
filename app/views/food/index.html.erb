@@ -6,6 +6,15 @@
   <%= stylesheet_link_tag    'application', media: 'all',
   'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+       #restaurants_container div {
+        float: bottom;
+        height: 800px;
+        width: 300px;
+      }
+    </style>
 </head>
 <body>
   <header class="navbar navbar-fixed-top navbar-inverse">
@@ -33,8 +42,8 @@
         </div>
       </div>
 
-      <div class="split right">
-        <div class="centered">
+      <div id="restaurants_container" class="split right">
+        <div id="restaurants" class="centered">
           <h1>Restaurants</h1>
           <p>Here are some Restaraunts!</p>
           <%= @food.id %>
@@ -42,6 +51,49 @@
           <%= @food.food_origin %>
           <%= @food.food_type %>
         </div>
+
+        <div id="map"></div>
+            <script>
+              var map, infoWindow;
+              function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                  center: {lat: 0, lng: 0},
+                  zoom: 6
+                });
+                infoWindow = new google.maps.InfoWindow;
+
+                // Try HTML5 geolocation.
+                if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                      lat: position.coords.latitude,
+                      lng: position.coords.longitude
+                    };
+
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('Location found.');
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                  }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                  });
+                } else {
+                  // Browser doesn't support Geolocation
+                  handleLocationError(false, infoWindow, map.getCenter());
+                }
+              }
+
+              function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                infoWindow.setPosition(pos);
+                infoWindow.setContent(browserHasGeolocation ?
+                                      'Error: The Geolocation service failed.' :
+                                      'Error: Your browser doesn\'t support geolocation.');
+                infoWindow.open(map);
+              }
+            </script>
+            <script async defer
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD90bDSQmkeoB_dLU9x82FtOAYPweWKQVg&callback=initMap">
+            </script>
       </div>
     </div>
   </body>
