@@ -44,7 +44,7 @@
         </div>
         <div id="map" class="map"></div>
             <script>
-              var map, infoWindow;
+              var map, infoWindow, pos;
               function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
                   center: {lat: 0, lng: 0},
@@ -52,10 +52,10 @@
                 });
                 infoWindow = new google.maps.InfoWindow();
 
-                // Try HTML5 geolocation.
+                // Get user location, then find restaurants nearby
                 if (navigator.geolocation) {
                   navigator.geolocation.getCurrentPosition(function(position) {
-                    var pos = {
+                    pos = {
                       lat: position.coords.latitude,
                       lng: position.coords.longitude
                     };
@@ -64,6 +64,7 @@
                     infoWindow.setContent('You are here!');
                     infoWindow.open(map);
                     map.setCenter(pos);
+                    getRestaurantsNearby(map, pos);
                   }, function() {
                     handleLocationError(true, infoWindow, map.getCenter());
                   });
@@ -71,6 +72,19 @@
                   // Browser doesn't support Geolocation
                   handleLocationError(false, infoWindow, map.getCenter());
                 }
+              }
+
+              function getRestaurantsNearby(map, pos) {
+                var foodName = "<%= @food.food_name %>";
+
+                // Test that foodName is accurate
+                testWindow = new google.maps.InfoWindow();
+                testWindow.setPosition(pos);
+                testWindow.setContent(foodName);
+                testWindow.open(map);
+
+                //Do a place search for restaurants nearby - https://developers.google.com/maps/documentation/javascript/examples/place-search
+                var placeService = new google.maps.places.PlacesService(map);
               }
 
               function handleLocationError(browserHasGeolocation, infoWindow, pos) {
