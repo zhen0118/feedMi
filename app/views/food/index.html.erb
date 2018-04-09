@@ -64,6 +64,7 @@
                     infoWindow.setContent('You are here!');
                     infoWindow.open(map);
                     map.setCenter(pos);
+                    console.log("Position: " + pos.lat + pos.lng);
                     getRestaurantsNearby(map, pos);
                   }, function() {
                     handleLocationError(true, infoWindow, map.getCenter());
@@ -76,15 +77,39 @@
 
               function getRestaurantsNearby(map, pos) {
                 var foodName = "<%= @food.food_name %>";
+                var foodOrigin = "<%= @food.food_origin %>";
+                console.log("Getting places for " + foodName);
 
-                // Test that foodName is accurate
-                testWindow = new google.maps.InfoWindow();
-                testWindow.setPosition(pos);
-                testWindow.setContent(foodName);
-                testWindow.open(map);
-
-                //Do a place search for restaurants nearby - https://developers.google.com/maps/documentation/javascript/examples/place-search
+                //Do a place search for restaurants nearby
                 var placeService = new google.maps.places.PlacesService(map);
+                placeService.nearbySearch({
+                  location: pos,
+                  radius: 500,
+                  type: [foodName, foodOrigin, "restaurant"]
+                }, callback);
+              }
+
+              function callback(results, status) {
+                console.log("Status for Place Service:" + status);
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                  for (var i = 0; i < results.length; i++) {
+                    console.log("Place result: " + results[i]);
+                    createMarker(results[i]);
+                  }
+                }
+              }
+
+              function createMarker(place) {
+                var placeLoc = place.geometry.location;
+                var marker = new google.maps.Marker({
+                  map: map,
+                  position: place.geometry.location
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                  infoWindow.setContent(place.name);
+                  infoWindow.open(map, this);
+                });
               }
 
               function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -96,7 +121,7 @@
               }
             </script>
             <script async defer
-              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD90bDSQmkeoB_dLU9x82FtOAYPweWKQVg&callback=initMap">
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD90bDSQmkeoB_dLU9x82FtOAYPweWKQVg&libraries=places&callback=initMap">
             </script>
     </div>
   </body>
