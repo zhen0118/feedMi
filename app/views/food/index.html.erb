@@ -5,7 +5,99 @@
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag    'application', media: 'all',
   'data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <script>
+    var map, infoWindow, pos, markerCount;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 0, lng: 0},
+        zoom: 14
+      });
+      infoWindow = new google.maps.InfoWindow();
+
+      // Get user location, then find restaurants nearby
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+
+          infoWindow.setPosition(pos);
+          infoWindow.setContent('You are here!');
+          infoWindow.open(map);
+          map.setCenter(pos);
+          markerCount = 0;
+          getFoodRestaurantsNearby(map, pos);
+          if (markerCount < 5) {
+          getOriginRestaurantsNearby(map, pos);
+          }
+        }, function() {
+          handleLocationError(true, infoWindow, map.getCenter());
+        });
+      } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+      }
+    }
+
+    function getFoodRestaurantsNearby(map, pos) {
+      var foodName = "<%= @food.food_name %>";
+
+      //Do a place search for restaurants nearby
+      var placeService = new google.maps.places.PlacesService(map);
+      placeService.nearbySearch({
+        location: pos,
+        radius: 3000,
+        keyword: foodName,
+        type: ['restaurant']
+      }, callback);
+    }
+
+    function getOriginRestaurantsNearby(map, pos) {
+      var foodOrigin = "<%= @food.food_origin %>";
+
+      //Do a place search for restaurants nearby
+      var placeService = new google.maps.places.PlacesService(map);
+      placeService.nearbySearch({
+        location: pos,
+        radius: 3000,
+        keyword: foodOrigin,
+        type: ['restaurant']
+      }, callback);
+    }
+
+    function callback(results, status) {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          createMarker(results[i]);
+        }
+      }
+    }
+
+    function createMarker(place) {
+      var placeLoc = place.geometry.location;
+      var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+      });
+
+      google.maps.event.addListener(marker, 'click', function() {
+        infoWindow.setContent(place.name);
+        infoWindow.open(map, this);
+      });
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(browserHasGeolocation ?
+                            'Error: Please turn on location services.' :
+                            'Error: Your browser doesn\'t support geolocation.');
+      infoWindow.open(map);
+    }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD90bDSQmkeoB_dLU9x82FtOAYPweWKQVg&libraries=places&callback=initMap">
+  </script>
 </head>
 <body>
   <header class="navbar navbar-fixed-top navbar-inverse">
@@ -43,86 +135,6 @@
           <%= @food.food_type %>
         </div>
         <div id="map" class="map"></div>
-            <script>
-              var map, infoWindow, pos;
-              function initMap() {
-                map = new google.maps.Map(document.getElementById('map'), {
-                  center: {lat: 0, lng: 0},
-                  zoom: 15
-                });
-                infoWindow = new google.maps.InfoWindow();
-
-                // Get user location, then find restaurants nearby
-                if (navigator.geolocation) {
-                  navigator.geolocation.getCurrentPosition(function(position) {
-                    pos = {
-                      lat: position.coords.latitude,
-                      lng: position.coords.longitude
-                    };
-
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent('You are here!');
-                    infoWindow.open(map);
-                    map.setCenter(pos);
-                    console.log("Position: " + pos.lat + pos.lng);
-                    getRestaurantsNearby(map, pos);
-                  }, function() {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                  });
-                } else {
-                  // Browser doesn't support Geolocation
-                  handleLocationError(false, infoWindow, map.getCenter());
-                }
-              }
-
-              function getRestaurantsNearby(map, pos) {
-                var foodName = "<%= @food.food_name %>";
-                var foodOrigin = "<%= @food.food_origin %>";
-                console.log("Getting places for " + foodName);
-
-                //Do a place search for restaurants nearby
-                var placeService = new google.maps.places.PlacesService(map);
-                placeService.nearbySearch({
-                  location: pos,
-                  radius: 500,
-                  type: [foodName, foodOrigin, "restaurant"]
-                }, callback);
-              }
-
-              function callback(results, status) {
-                console.log("Status for Place Service:" + status);
-                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                  for (var i = 0; i < results.length; i++) {
-                    console.log("Place result: " + results[i]);
-                    createMarker(results[i]);
-                  }
-                }
-              }
-
-              function createMarker(place) {
-                var placeLoc = place.geometry.location;
-                var marker = new google.maps.Marker({
-                  map: map,
-                  position: place.geometry.location
-                });
-
-                google.maps.event.addListener(marker, 'click', function() {
-                  infoWindow.setContent(place.name);
-                  infoWindow.open(map, this);
-                });
-              }
-
-              function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-                infoWindow.setPosition(pos);
-                infoWindow.setContent(browserHasGeolocation ?
-                                      'Error: Please turn on location services.' :
-                                      'Error: Your browser doesn\'t support geolocation.');
-                infoWindow.open(map);
-              }
-            </script>
-            <script async defer
-              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD90bDSQmkeoB_dLU9x82FtOAYPweWKQVg&libraries=places&callback=initMap">
-            </script>
     </div>
   </body>
   </html>
