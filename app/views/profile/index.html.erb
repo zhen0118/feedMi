@@ -23,11 +23,15 @@
     <div >
 
       <%#CURRENT USER info%>
-      <h2><%=   current_user.user_name %></h2>
+      <h2><%= current_user.user_name %></h2>
       <h2><%= current_user.first_name %></h2>
       <h2><%= current_user.last_name %></h2>
       <h2><%= current_user.email %></h2>
       <h2><%= current_user.password %></h2>
+      <h2><%= @weather["name"]%></h2>
+      <h2>Current Temperature: <%= @weather["main"]["temp"]%></h2>
+      <h2>Min. Temperature: <%= @weather["main"]["temp_min"]%></h2>
+      <h2>Max. Temperature: <%= @weather["main"]["temp_max"]%></h2>
 
     </div>
   </body>
