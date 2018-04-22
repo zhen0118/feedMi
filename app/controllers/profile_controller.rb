@@ -1,4 +1,5 @@
-require 'url_api'
+#require 'url_api'
+require 'httparty'
 
 class ProfileController < ActionController::Base
   before_action :set_user, only: [:show, :edit, :update, :destroy]
