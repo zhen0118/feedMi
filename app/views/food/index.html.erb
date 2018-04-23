@@ -98,6 +98,30 @@
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD90bDSQmkeoB_dLU9x82FtOAYPweWKQVg&libraries=places&callback=initMap">
   </script>
+  <script>
+    function retrieveSearchResults(response) {
+      if (response.items == undefined) {
+        let noResultsText = 'Sorry! Could not find any recipes for <%= @food.food_name %>';
+        let noResults = document.createTextNode(noResultsText);
+        document.getElementById("searchResults").appendChild(noResults);
+      } else {
+        for (var i = 0; i < response.items.length; i++) {
+          let item = response.items[i];
+          let resLink = document.createElement('a');
+          let resLinkText = document.createTextNode(item.title);
+          let resBreak = document.createElement('br');
+          resLink.appendChild(resLinkText);
+          resLink.innerHtml = item.htmlTitle;
+          resLink.href = item.link;
+          document.getElementById("searchResults").appendChild(resLink);
+          document.getElementById("searchResults").appendChild(resBreak);
+        }
+      }
+    }
+  </script>
+  <script async defer
+    src="https://www.googleapis.com/customsearch/v1?key=AIzaSyAILSunC6tE7KYoFfezidpemG_JN-6SrZM&cx=005349411452458523555:asc2vvdzm0o&q=<%= @food.food_name %>&callback=retrieveSearchResults">
+  </script>
 </head>
 <body>
   <header class="navbar navbar-fixed-top navbar-inverse">
@@ -123,6 +147,7 @@
           <%= @food.food_origin %>
           <%= @food.food_type %>
         </div>
+        <div id="searchResults" class="results"></div>
       </div>
 
       <div class="split right">
