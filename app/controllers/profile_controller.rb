@@ -1,4 +1,3 @@
-#require 'url_api'
 require 'httparty'
 
 class ProfileController < ActionController::Base
@@ -16,6 +15,12 @@ class ProfileController < ActionController::Base
 
     @weather = HTTParty.get('http://api.openweathermap.org/data/2.5/weather?q=vancouver,ca&appid=14690f349339811822071d5e32bc915f&units=metric',
     :headers =>{'Content-Type' => 'application/json'} )
+
+    #prints the weather JSON obj
+    puts @weather
+    
+    @weather_icon = @weather["weather"][0]["icon"].to_s
+    puts @weather_icon
     #@username = User.find(params[:user_name])||current_user
   end
 

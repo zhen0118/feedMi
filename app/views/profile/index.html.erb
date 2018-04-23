@@ -30,6 +30,8 @@
       <h2>Current Temperature: <%= @weather["main"]["temp"]%></h2>
       <h2>Min. Temperature: <%= @weather["main"]["temp_min"]%></h2>
       <h2>Max. Temperature: <%= @weather["main"]["temp_max"]%></h2>
+      <img src="http://openweathermap.org/img/w/<%= @weather_icon%>.png">
+
 
     </div>
   </body>
