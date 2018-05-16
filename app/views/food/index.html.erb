@@ -6,13 +6,14 @@
   <%= stylesheet_link_tag    'application', media: 'all',
   'data-turbolinks-track': 'reload' %>
   <script>
-    var map, infoWindow, pos, markerCount;
+    var map, infoWindow, hereMarker, pos, markerCount;
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 0, lng: 0},
         zoom: 14
       });
       infoWindow = new google.maps.InfoWindow();
+
 
       // Get user location, then find restaurants nearby
       if (navigator.geolocation) {
@@ -22,9 +23,21 @@
             lng: position.coords.longitude
           };
 
+          hereMarker = new google.maps.Marker({
+            map: map,
+            position: pos
+          });
+
           infoWindow.setPosition(pos);
           infoWindow.setContent('You are here!');
-          infoWindow.open(map);
+          infoWindow.open(map, hereMarker);
+
+
+          google.maps.event.addListener(hereMarker, 'click', function() {
+            infoWindow.setContent('You are here!');
+            infoWindow.open(map, this);
+          });
+
           map.setCenter(pos);
           markerCount = 0;
           getFoodRestaurantsNearby(map, pos);
@@ -82,7 +95,9 @@
       });
 
       google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.setContent(place.name);
+        infoWindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                place.vicinity + '<br>' +
+                'Rating: ' + place.rating  +'</div>');
         infoWindow.open(map, this);
       });
     }
